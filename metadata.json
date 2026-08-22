@@ -1,37 +1,49 @@
 {
-  "team_id": "your-team-id",
-  "domain": "coding_assistants",
+  "team_id": "https://devpost.com/software/sme-ledger-from-messy-massages-logs",
+  "domain": "financial_intelligence",
   "language_scope": ["en"],
   "african_alpha_claim": false,
   "budget_laptop_claim": true,
   "submitter": {
-    "name": "your-name",
-    "email": "your-email@domain.com",
-    "github_handle": "your-github"
+    "name": "Peter Otieno Wanga",
+    "email": "peterwanga326@gmail.com",
+    "github_handle": "Wangadeveloper"
   },
   "cross_disciplinary_pairing": {
-    "discipline": "education",
+    "discipline": "finance",
     "load_bearing": true,
-    "description": "Brief description of how your model serves a real-world domain."
+    "description": "A lightweight on-device financial intelligence model specialized for extracting structured transaction records from Kenyan M-Pesa SMS messages. The extracted records are passed to deterministic Python analytics for cash-flow tracking, spending analysis, balance tracking, and financial insights."
   },
   "test_prompts": [
     {
       "prompt_id": "tp_001",
-      "prompt": "Write a Python function that reads a CSV file and returns the column with the highest mean value."
+      "prompt": "Extract the M-Pesa transaction from the SMS below and return ONLY valid JSON.\n\nThe JSON MUST contain exactly these five fields:\n- entity\n- amount\n- balance\n- date\n- type\n\nRules:\n- amount must be a number.\n- balance must be a number.\n- date must use YYYY-MM-DD format.\n- type must be either \"income\" or \"expense\".\n- entity must contain the relevant person, business, or organization.\n- Extract the transaction date from the SMS timestamp.\n- Ignore the M-Pesa transaction ID; do not include it in the JSON.\n- Do not add any extra fields.\n- Do not include markdown, explanations, or code fences.\n\nSMS:\n\nQGH7K3M2P1 Confirmed. You have received Ksh20,000.00 from Ann Mueni 0712***456 on 05/03/2026 at 10:42 AM. New M-PESA balance is Ksh159,583.00. Transaction cost, Ksh0.00.\n\nReturn ONLY the JSON object."
     },
     {
       "prompt_id": "tp_002",
-      "prompt": "Explain the difference between a list and a tuple in Python, and give one example where each is the better choice."
+      "prompt": "Extract the M-Pesa transaction from the SMS below and return ONLY valid JSON.\n\nThe JSON MUST contain exactly these five fields:\n- entity\n- amount\n- balance\n- date\n- type\n\nRules:\n- amount must be a number.\n- balance must be a number.\n- date must use YYYY-MM-DD format.\n- type must be either \"income\" or \"expense\".\n- entity must contain the relevant person, business, or organization.\n- Extract the transaction date from the SMS timestamp.\n- Ignore the M-Pesa transaction ID; do not include it in the JSON.\n- Do not add any extra fields.\n- Do not include markdown, explanations, or code fences.\n\nSMS:\n\nRTP8L6N4X2 Confirmed. Ksh5,500.00 received from Brian Otieno 0722***891 on 12/03/2026 at 2:18 PM. New M-PESA balance is Ksh165,083.00. Transaction cost, Ksh0.00.\n\nReturn ONLY the JSON object."
+    },
+    {
+      "prompt_id": "tp_003",
+      "prompt": "Extract the M-Pesa transaction from the SMS below and return ONLY valid JSON.\n\nThe JSON MUST contain exactly these five fields:\n- entity\n- amount\n- balance\n- date\n- type\n\nRules:\n- amount must be a number.\n- balance must be a number.\n- date must use YYYY-MM-DD format.\n- type must be either \"income\" or \"expense\".\n- entity must contain the relevant person, business, or organization.\n- Extract the transaction date from the SMS timestamp.\n- Ignore the M-Pesa transaction ID; do not include it in the JSON.\n- Do not add any extra fields.\n- Do not include markdown, explanations, or code fences.\n\nSMS:\n\nTZX4P9K7M3 Confirmed. Ksh3,250.00 paid to Naivas Supermarket on 18/03/2026 at 6:35 PM. New M-PESA balance is Ksh161,833.00. Transaction cost, Ksh0.00.\n\nReturn ONLY the JSON object."
     }
   ],
   "model": {
-    "name": "SmolLM2-135M-Instruct-Q4_K_M",
+    "name": "Gemma 3 270M Financial Intelligence Q4_K_M",
     "runtime": "llama.cpp",
     "quantization": "GGUF Q4_K_M",
-    "parameters_estimate": "135M",
+    "parameters_estimate": "268M",
+    "base_model": "google/gemma-3-270m-it",
+    "fine_tuning": "LoRA",
+    "lora_rank": 8,
+    "lora_alpha": 16,
+    "lora_dropout": 0.05,
+    "maximum_sequence_length": 512,
+    "training_dataset_size": 200,
+    "deployment_size": "~235 MiB",
     "packaging": "binary_bundle"
   },
   "_runtime": {
-    "model_path": "model/SmolLM2-135M-Instruct-Q4_K_M.gguf"
+    "model_path": "model/gemma3-financial-intelligence-Q4_K_M.gguf"
   }
 }
