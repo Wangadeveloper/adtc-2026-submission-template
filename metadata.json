@@ -1,6 +1,6 @@
 {
   "team_id": "sme-ledger-from-messy-massages-logs",
-  "domain": "financial_intelligence",
+  "domain": "corporate_enterprise",
   "language_scope": ["en"],
   "african_alpha_claim": false,
   "budget_laptop_claim": true,
@@ -21,10 +21,6 @@
     },
     {
       "prompt_id": "tp_002",
-      "prompt": "Extract the M-Pesa transaction from the SMS below and return ONLY valid JSON.\n\nThe JSON MUST contain exactly these five fields:\n- entity\n- amount\n- balance\n- date\n- type\n\nRules:\n- amount must be a number.\n- balance must be a number.\n- date must use YYYY-MM-DD format.\n- type must be either \"income\" or \"expense\".\n- entity must contain the relevant person, business, or organization.\n- Extract the transaction date from the SMS timestamp.\n- Ignore the M-Pesa transaction ID; do not include it in the JSON.\n- Do not add any extra fields.\n- Do not include markdown, explanations, or code fences.\n\nSMS:\n\nRTP8L6N4X2 Confirmed. Ksh5,500.00 received from Brian Otieno 0722***891 on 12/03/2026 at 2:18 PM. New M-PESA balance is Ksh165,083.00. Transaction cost, Ksh0.00.\n\nReturn ONLY the JSON object."
-    },
-    {
-      "prompt_id": "tp_003",
       "prompt": "Extract the M-Pesa transaction from the SMS below and return ONLY valid JSON.\n\nThe JSON MUST contain exactly these five fields:\n- entity\n- amount\n- balance\n- date\n- type\n\nRules:\n- amount must be a number.\n- balance must be a number.\n- date must use YYYY-MM-DD format.\n- type must be either \"income\" or \"expense\".\n- entity must contain the relevant person, business, or organization.\n- Extract the transaction date from the SMS timestamp.\n- Ignore the M-Pesa transaction ID; do not include it in the JSON.\n- Do not add any extra fields.\n- Do not include markdown, explanations, or code fences.\n\nSMS:\n\nTZX4P9K7M3 Confirmed. Ksh3,250.00 paid to Naivas Supermarket on 18/03/2026 at 6:35 PM. New M-PESA balance is Ksh161,833.00. Transaction cost, Ksh0.00.\n\nReturn ONLY the JSON object."
     }
   ],

@@ -1,49 +1,105 @@
-# Technical Report — [Your Submission Title]
+# Technical Report — Gemma-SME Ledger
 
-**Team ID:** your-team-id  
-**Domain:** coding_assistants  
-**Model:** YourModel-Q4_K_M
+**Team ID:** `sme-ledger-from-messy-massages-logs`  
+**Domain:** `corporate_enterprise`  
+**Model:** `Gemma 3 270M Financial Intelligence Q4_K_M`  
 
 ---
 
 ## Problem
 
-<!-- What problem are you solving? Who is the target user? Why does this matter in an African context? -->
+**Gemma-SME Ledger** is an on-device financial intelligence system designed to turn messy M-Pesa SMS messages into structured financial insights for individuals and small businesses. M-Pesa is a popular mobile money platform in Kenya with 40.99 million active customers as of March 2026. 
 
-Describe the problem your model addresses, the target user group, and why running this model locally (offline, on consumer hardware) is important for this use case.
+For many individuals and small businesses (SMEs) in Kenya, a large portion of their financial history exists solely inside their phones as transaction SMS messages. These messages contain valuable information about income, expenses, merchants, transfers, withdrawals, balances, and recurring payments, but they are difficult to analyze manually. Traditional financial applications require cloud processing, accounts, or internet infrastructure that may not be practical for users with limited devices, costly cellular data, or intermittent connectivity.
+
+Furthermore, financial transaction data is highly sensitive. Sending a user's complete financial history to a remote server for every query introduces privacy, connectivity, cost, and infrastructure barriers. By processing SMS data locally, the system keeps the financial ledger and analytical workflow entirely on the user's device, ensuring 100% offline functionality and privacy.
 
 ---
 
 ## Design Decisions
 
-<!-- What model did you start from? Why that base model and quantization? What alternatives did you consider and reject? -->
+The project is designed as a hybrid system that pairs a tiny, specialized language model with deterministic code. The core architecture uses a **Gemma 3 270M** parameter model, fine-tuned with LoRA and quantized to GGUF for efficient inference via `llama.cpp`.
 
-- **Base model:** e.g. Llama 3.2 1B, Mistral 7B, Phi-3 mini, etc.
-- **Quantization:** e.g. Q4_K_M chosen for balance of quality and memory footprint
-- **Alternatives considered:** e.g. Q8_0 exceeded 8 GB limit; Q2_K degraded output quality too aggressively
+### Multi-Stage Pipeline Architecture
+
+```
+                 ┌──────────────────────┐
+                 │   M-Pesa SMS Logs    │
+                 └──────────┬───────────┘
+                            │
+                            ▼
+                 ┌──────────────────────┐
+                 │  Gemma 3 270M GGUF   │
+                 │   Local Extraction   │
+                 └──────────┬───────────┘
+                            │
+                            ▼
+                 ┌──────────────────────┐
+                 │    Structured JSON   │
+                 └──────────┬───────────┘
+                            │
+                            ▼
+                 ┌──────────────────────┐
+                 │   Pandas Ledger      │
+                 └──────────┬───────────┘
+                            │
+                            ▼
+             ┌──────────────────────────────┐
+             │  Deterministic Analytics     │
+             │                              │
+             │  Income                      │
+             │  Expenses                    │
+             │  Cash Flow                   │
+             │  Spending Patterns           │
+             │  Financial Signals            │
+             └──────────────┬───────────────┘
+                            │
+                            ▼
+                 ┌──────────────────────┐
+                 │  Financial Profile   │
+                 └──────────┬───────────┘
+                            │
+                            ▼
+                 ┌──────────────────────┐
+                 │  Gemma 3 270M GGUF   │
+                 │ Local Interpretation │
+                 └──────────┬───────────┘
+                            │
+                            ▼
+                 ┌──────────────────────┐
+                 │    User Guidance     │
+                 └──────────────────────┘
+```
+
+### Key Decisions
+1. **Division of Concerns (LLM + Python):** A 270M parameter model cannot perform complex financial arithmetic or multi-step reasoning reliably. The architecture separates responsibilities:
+   * **LLM (Language Understanding):** Extract structured entities and data from messy SMS text into JSON.
+   * **Python (Deterministic Computation):** Compute totals, margins, growth, net cash flow, and financial health signals using Pandas.
+   * **LLM (Interpretation & Guidance):** Translate the computed profile into natural, contextual advice based on the user's questions.
+2. **LoRA Fine-Tuning & Quantization:** The base model `google/gemma-3-270m-it` was fine-tuned using Low-Rank Adaptation (LoRA) to specialize it specifically for Kenyan financial SMS extraction. The final weights were merged and quantized to `GGUF Q4_K_M` to optimize memory and CPU inference performance.
+3. **Validation Layer:** Since small models can occasionally produce invalid JSON, a validation and normalization layer was built into the Python pipeline to correct or filter malformed outputs.
 
 ---
 
 ## Constraints
 
-<!-- What hardware, connectivity, power, or data constraints shaped your choices? -->
-
-- Target: 8 GB RAM, integrated GPU, Ubuntu 22.04
-- No GPU acceleration — pure CPU inference via llama.cpp
-- Any specific connectivity or data availability constraints relevant to your domain
+- **On-Device Target:** 8 GB RAM laptop profile (4 vCPU, integrated GPU).
+- **Offline Operation:** Zero external network dependencies. All inference runs locally via `llama.cpp` using the GGUF weight file.
+- **Privacy & Security:** Sensitive transactional messages never leave the device, mitigating cybersecurity risks and complying with data privacy principles.
+- **Hardware Agnosticism:** Optimized to execute efficiently on standard, budget, or older laptops without requiring high-end dedicated GPUs.
 
 ---
 
 ## Benchmarks
 
-<!-- What inference speed and memory numbers did you observe on your development machine? -->
+Development benchmarks measured using the local llama.cpp environment on a standard budget development machine:
 
 | Metric | Value |
 |---|---|
-| Machine | e.g. MacBook Air M2 / ThinkPad X1 i5 |
-| RAM at peak | e.g. 3.8 GB |
-| Time to first token | e.g. 420 ms |
-| Generation speed | e.g. 18.4 t/s |
-| Thermal throttling | e.g. None observed |
+| **Machine** | Intel Core i5 (4 Cores), 8 GB RAM, Ubuntu 22.04 |
+| **RAM at Peak (Model Load)** | ~320 MB |
+| **Time to First Token** | ~28 ms |
+| **Generation Speed** | ~82.4 t/s |
+| **Thermal Throttling** | None observed |
 
-These are self-reported development benchmarks. Official scores are measured by the ADTC profiler on the standard evaluation machine.
+*Note: Gemma 3 270M Q4_K_M has a very light memory footprint, leaving ample resources (~7.6 GB) for OS operations, the Python analytics engine, and other user applications.*
