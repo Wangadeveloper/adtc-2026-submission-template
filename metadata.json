@@ -29,14 +29,6 @@
     "runtime": "llama.cpp",
     "quantization": "GGUF Q4_K_M",
     "parameters_estimate": "268M",
-    "base_model": "google/gemma-3-270m-it",
-    "fine_tuning": "LoRA",
-    "lora_rank": 8,
-    "lora_alpha": 16,
-    "lora_dropout": 0.05,
-    "maximum_sequence_length": 512,
-    "training_dataset_size": 200,
-    "deployment_size": "~235 MiB",
     "packaging": "binary_bundle"
   },
   "_runtime": {
