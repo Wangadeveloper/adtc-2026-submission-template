@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.1.0",
+  "profiler_version": "adtc-profiler 0.1.0",
+  "submission": {
+    "team_id": "sme-ledger-from-messy-massages-logs",
+    "domain": "corporate_enterprise",
+    "language_scope": [
+      "en"
+    ],
+    "african_alpha_claim": false,
+    "budget_laptop_claim": true,
+    "submitter": {
+      "name": "Peter Otieno Wanga",
+      "email": "peterwanga326@gmail.com",
+      "github_handle": "Wangadeveloper"
+    },
+    "cross_disciplinary_pairing": {
+      "discipline": "finance",
+      "load_bearing": true,
+      "description": "A lightweight on-device financial intelligence model specialized for extracting structured transaction records from Kenyan M-Pesa SMS messages. The extracted records are passed to deterministic Python analytics for cash-flow tracking, spending analysis, balance tracking, and financial insights."
+    },
+    "test_prompts": [
+      {
+        "prompt_id": "tp_001",
+        "prompt": "Extract the M-Pesa transaction from the SMS below and return ONLY valid JSON.\n\nThe JSON MUST contain exactly these five fields:\n- entity\n- amount\n- balance\n- date\n- type\n\nRules:\n- amount must be a number.\n- balance must be a number.\n- date must use YYYY-MM-DD format.\n- type must be either \"income\" or \"expense\".\n- entity must contain the relevant person, business, or organization.\n- Extract the transaction date from the SMS timestamp.\n- Ignore the M-Pesa transaction ID; do not include it in the JSON.\n- Do not add any extra fields.\n- Do not include markdown, explanations, or code fences.\n\nSMS:\n\nQGH7K3M2P1 Confirmed. You have received Ksh20,000.00 from Ann Mueni 0712***456 on 05/03/2026 at 10:42 AM. New M-PESA balance is Ksh159,583.00. Transaction cost, Ksh0.00.\n\nReturn ONLY the JSON object."
+      },
+      {
+        "prompt_id": "tp_002",
+        "prompt": "Extract the M-Pesa transaction from the SMS below and return ONLY valid JSON.\n\nThe JSON MUST contain exactly these five fields:\n- entity\n- amount\n- balance\n- date\n- type\n\nRules:\n- amount must be a number.\n- balance must be a number.\n- date must use YYYY-MM-DD format.\n- type must be either \"income\" or \"expense\".\n- entity must contain the relevant person, business, or organization.\n- Extract the transaction date from the SMS timestamp.\n- Ignore the M-Pesa transaction ID; do not include it in the JSON.\n- Do not add any extra fields.\n- Do not include markdown, explanations, or code fences.\n\nSMS:\n\nTZX4P9K7M3 Confirmed. Ksh3,250.00 paid to Naivas Supermarket on 18/03/2026 at 6:35 PM. New M-PESA balance is Ksh161,833.00. Transaction cost, Ksh0.00.\n\nReturn ONLY the JSON object."
+      }
+    ],
+    "model": {
+      "name": "Gemma 3 270M Financial Intelligence Q4_K_M",
+      "runtime": "llama.cpp",
+      "quantization": "GGUF Q4_K_M",
+      "parameters_estimate": "268M",
+      "packaging": "binary_bundle"
+    }
+  },
+  "environment": {
+    "measured_on": "participant_laptop",
+    "cpu_model": "Intel(R) Xeon(R) CPU @ 2.20GHz",
+    "ram_gb": 31.3,
+    "gpu": "none",
+    "os": "Ubuntu 22.04.5 LTS"
+  },
+  "throughput": {
+    "tokens_per_second_generation": 42.6,
+    "first_token_latency_ms": 2217.25,
+    "prompt_tokens": 512,
+    "generated_tokens": 128
+  },
+  "memory": {
+    "peak_rss_mb": 381.99,
+    "steady_state_rss_mb": 359.52,
+    "peak_vms_mb": 1089.55
+  },
+  "accuracy": [],
+  "cpu_thermal": {
+    "cpu_percent_p99": 60.0,
+    "core_temp_c_peak": null,
+    "throttled": false
+  },
+  "reproducibility": {
+    "git_commit_sha": "5a45ef904486",
+    "docker_image_digest": "unknown",
+    "random_seed": 42
+  },
+  "model_info": {
+    "params_count": 268098176,
+    "context_length": 32768,
+    "architecture": "gemma3",
+    "claimed_params_estimate": "268M",
+    "params_match": true
+  }
+}
