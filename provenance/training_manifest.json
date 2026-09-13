@@ -1,0 +1,69 @@
+{
+  "run_name": "sme-ledger-v2",
+  "timestamp": "2026-09-13T15:55:28.448682Z",
+  "git_commit": "unknown",
+  "base_model": "google/gemma-3-270m-it",
+  "hardware": {
+    "device_type": "cuda",
+    "device_name": "NVIDIA H100 PCIe",
+    "cuda_available": true,
+    "bf16_supported": true,
+    "fp16_supported": true,
+    "vram_total_gb": 79.19,
+    "cpu_count": 28,
+    "ram_total_gb": 177.07,
+    "selected_dtype": "torch.float32"
+  },
+  "config": {
+    "base_model": "google/gemma-3-270m-it",
+    "fallback_base_model": "Huihui-ai/Huihui-gemma-3-270m-it-abliterated",
+    "hf_token": null,
+    "project_root": "/home/shadeform/sme-ledger",
+    "data_dir": "/home/shadeform/sme-ledger/data/sme_ledger_v2_dataset",
+    "output_dir": "/home/shadeform/sme-ledger/models",
+    "reports_dir": "/home/shadeform/sme-ledger/reports",
+    "run_name": "sme-ledger-v2",
+    "llama_cpp_dir": "/home/shadeform/llama.cpp",
+    "seed": 20260910,
+    "lora_r": 8,
+    "lora_alpha": 16,
+    "lora_dropout": 0.05,
+    "lora_target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ],
+    "learning_rate": 0.0001,
+    "num_epochs": 5,
+    "train_batch_size": 1,
+    "eval_batch_size": 1,
+    "gradient_accumulation_steps": 8,
+    "max_length": 768,
+    "warmup_ratio": 0.05,
+    "weight_decay": 0.01,
+    "max_grad_norm": 1.0,
+    "max_new_tokens": 300,
+    "eval_limit": 100,
+    "benchmark_eval_limit": 50,
+    "capability_ratio": 0.04,
+    "quantization_type": "Q4_K_M"
+  },
+  "train_examples": 16275,
+  "val_examples": 1953,
+  "train_duration_seconds": 2781.23,
+  "train_loss": 0.02411337202684885,
+  "eval_metrics": {
+    "eval_loss": 0.06385920941829681,
+    "eval_runtime": 56.0841,
+    "eval_samples_per_second": 34.823,
+    "eval_steps_per_second": 34.823,
+    "epoch": 5.0
+  },
+  "artifacts": {
+    "lora_dir": "/home/shadeform/sme-ledger/models/lora"
+  }
+}

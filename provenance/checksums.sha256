@@ -1,0 +1,15 @@
+# SHA256 Checksums — SME-Ledger V2 ADTC 2026 Submission
+# Gate 2 §3.1 — Proof of Training Artefacts
+# Generated: 2026-09-13
+#
+# Verify with:
+#   sha256sum -c checksums.sha256
+#
+# Note: gguf weight file is NOT committed to git (gitignored).
+# Download via download_model.sh then verify the checksum below.
+
+# LoRA Adapter (committed in provenance/)
+5df3b6da437a93f0cba6e7fd34443f814bea972562e250a4e5ec6805921ee81c  adapter_model.safetensors
+
+# Final quantized GGUF (download via download_model.sh, then verify)
+87b313e9ceb130302eb3c2327681cbeb55954d531fae4c39f8f5e8c823392fac  ../model/gemma3-financial-intelligence-Q4_K_M.gguf
