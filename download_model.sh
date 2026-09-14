@@ -13,7 +13,7 @@ MODEL_DIR="$HERE/model"
 MODEL_FILE="$MODEL_DIR/gemma3-financial-intelligence-Q4_K_M.gguf"
 
 # Public Hugging Face model weight URL
-MODEL_URL="https://huggingface.co/EngineerWanga0791709020/gemma3-financial-intelligence-GGUF/resolve/main/gemma3-financial-intelligence-Q4_K_M.gguf"
+MODEL_URL="https://huggingface.co/EngineerWanga0791709020/SME-Ledger/resolve/main/sme-ledger-v2-Q4_K_M.gguf"
 
 mkdir -p "$MODEL_DIR"
 
