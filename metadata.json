@@ -12,7 +12,7 @@
   "cross_disciplinary_pairing": {
     "discipline": "finance",
     "load_bearing": true,
-    "description": "A lightweight on-device financial intelligence model specialized for extracting structured transaction records from Kenyan M-Pesa SMS messages. The extracted records are passed to deterministic Python analytics for cash-flow tracking, spending analysis, balance tracking, and financial insights."
+    "description": "A lightweight on-device financial intelligence model specialized for extracting structured transaction records from diverse financial transaction messages (M-Pesa, banking, transfers, merchant payments, loans, and reversals) and answering capability-oriented queries. The extracted records are passed to deterministic Python analytics for cash-flow tracking, spending analysis, balance tracking, and financial insights."
   },
   "test_prompts": [
     {
@@ -21,7 +21,7 @@
     },
     {
       "prompt_id": "tp_002",
-      "prompt": "Extract the M-Pesa transaction from the SMS below and return ONLY valid JSON.\n\nThe JSON MUST contain exactly these five fields:\n- entity\n- amount\n- balance\n- date\n- type\n\nRules:\n- amount must be a number.\n- balance must be a number.\n- date must use YYYY-MM-DD format.\n- type must be either \"income\" or \"expense\".\n- entity must contain the relevant person, business, or organization.\n- Extract the transaction date from the SMS timestamp.\n- Ignore the M-Pesa transaction ID; do not include it in the JSON.\n- Do not add any extra fields.\n- Do not include markdown, explanations, or code fences.\n\nSMS:\n\nTZX4P9K7M3 Confirmed. Ksh3,250.00 paid to Naivas Supermarket on 18/03/2026 at 6:35 PM. New M-PESA balance is Ksh161,833.00. Transaction cost, Ksh0.00.\n\nReturn ONLY the JSON object."
+      "prompt": "What types of financial transaction messages can you analyze, and what structured information can you extract from them?"
     }
   ],
   "model": {

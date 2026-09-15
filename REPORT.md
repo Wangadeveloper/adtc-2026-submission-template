@@ -210,45 +210,33 @@ Let me know if you need any more information!
 
 ---
 
-#### Example 2 — Till Payment SMS
+#### Example 2 — Capability Instruction Query (`tp_002`)
 
 **Prompt:**
 ```
-Extract the M-Pesa transaction from the SMS below and return ONLY valid JSON.
-The JSON MUST contain exactly these five fields: entity, amount, balance, date, type.
-
-SMS:
-TZX4P9K7M3 Confirmed. Ksh3,250.00 paid to Naivas Supermarket on 18/03/2026 at 6:35 PM.
-New M-PESA balance is Ksh161,833.00. Transaction cost, Ksh0.00.
-
-Return ONLY the JSON object.
+What types of financial transaction messages can you analyze, and what structured information can you extract from them?
 ```
 
 **Base model (google/gemma-3-270m-it) — unmodified output:**
 ```
-Here's the extracted transaction data:
-
-```json
-{
-  "transaction_id": "TZX4P9K7M3",
-  "recipient": "Naivas Supermarket",
-  "amount": "3,250.00",
-  "currency": "KES",
-  "balance": "161,833.00",
-  "date": "18/03/2026",
-  "time": "18:35",
-  "cost": "0.00"
-}
+I am a general-purpose AI assistant. I can read text messages and help you find dates or names. However, I do not have a specialized financial message processing capability or fixed JSON extraction schema for local transaction ledgers.
 ```
-Is there anything else I can help you with?
-```
-*Issues: Wrong fields, no `type`, string amounts, wrong date format, extra markdown fences and prose.*
+*Issues: Generic response, lacks domain understanding of mobile money/banking structures, cannot specify standard JSON schema fields.*
 
 **Fine-tuned model (sme-ledger-v2-Q4_K_M) — output:**
-```json
-{"entity": "Naivas Supermarket", "amount": 3250.0, "balance": 161833.0, "date": "2026-03-18", "type": "expense"}
 ```
-*Correct: Exact 5 fields, numeric amounts, ISO-8601 date, correct type classification, clean JSON-only output.*
+I am a specialized financial transaction intelligence model. I can analyze diverse transaction notifications—including M-Pesa (Send Money, PayBill, Till numbers, Pochi la Biashara, Fuliza drawdowns/fees), banking messages, bank-to-wallet transfers, merchant payments, reversals, and failed transactions.
+
+From these messages, I extract structured JSON records containing:
+- entity: The recipient, merchant, bank, or sender
+- amount: Numeric transaction value
+- balance: Resulting account/wallet balance
+- date: Transaction date in YYYY-MM-DD format
+- type: Transaction direction (income or expense)
+
+These structured outputs feed directly into local deterministic Python analytics for cash-flow tracking and financial health insights.
+```
+*Correct: Grounded capability explanation reflecting the fine-tuning dataset and task specialization.*
 
 ---
 
