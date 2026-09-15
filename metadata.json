@@ -21,7 +21,7 @@
     },
     {
       "prompt_id": "tp_002",
-      "prompt": "What types of financial transaction messages can you analyze, and what structured information can you extract from them?"
+      "prompt": "How do you handle missing information or ambiguity in a financial transaction message, such as when the sender/merchant name, transaction date, balance, or transaction ID is omitted?"
     }
   ],
   "model": {

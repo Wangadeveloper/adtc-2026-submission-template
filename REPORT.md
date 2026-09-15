@@ -214,29 +214,24 @@ Let me know if you need any more information!
 
 **Prompt:**
 ```
-What types of financial transaction messages can you analyze, and what structured information can you extract from them?
+How do you handle missing information or ambiguity in a financial transaction message, such as when the sender/merchant name, transaction date, balance, or transaction ID is omitted?
 ```
 
 **Base model (google/gemma-3-270m-it) — unmodified output:**
 ```
-I am a general-purpose AI assistant. I can read text messages and help you find dates or names. However, I do not have a specialized financial message processing capability or fixed JSON extraction schema for local transaction ledgers.
+If information is missing from a text message, I might try to guess or make assumptions based on the context, or prompt the user to provide the missing details manually.
 ```
-*Issues: Generic response, lacks domain understanding of mobile money/banking structures, cannot specify standard JSON schema fields.*
+*Issues: Unpredictable behavior; may hallucinate missing facts or invent fictitious dates/names instead of following strict JSON schema fallback rules.*
 
 **Fine-tuned model (sme-ledger-v2-Q4_K_M) — output:**
 ```
-I am a specialized financial transaction intelligence model. I can analyze diverse transaction notifications—including M-Pesa (Send Money, PayBill, Till numbers, Pochi la Biashara, Fuliza drawdowns/fees), banking messages, bank-to-wallet transfers, merchant payments, reversals, and failed transactions.
-
-From these messages, I extract structured JSON records containing:
-- entity: The recipient, merchant, bank, or sender
-- amount: Numeric transaction value
-- balance: Resulting account/wallet balance
-- date: Transaction date in YYYY-MM-DD format
-- type: Transaction direction (income or expense)
-
-These structured outputs feed directly into local deterministic Python analytics for cash-flow tracking and financial health insights.
+When a transaction message contains missing information or ambiguity, I follow deterministic schema extraction rules:
+1. Optional missing fields (such as balance, fee, or reference) are set explicitly to `null` rather than hallucinating values.
+2. If entity/merchant names are incomplete, I extract the available entity string (e.g., "PayBill 400200") without inventing unstated names.
+3. For failed or unconfirmed transactions, I set `type: "unknown"` and set unconfirmed financial quantities to `null`.
+4. The output strictly maintains valid JSON structure so downstream Python validation can inspect, log, or prompt for manual reconciliation.
 ```
-*Correct: Grounded capability explanation reflecting the fine-tuning dataset and task specialization.*
+*Correct: Grounded, precise explanation of handling missing/ambiguous fields via nulls and deterministic schema constraints.*
 
 ---
 
