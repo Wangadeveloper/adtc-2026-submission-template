@@ -19,6 +19,14 @@
       "load_bearing": true,
       "description": "A lightweight on-device financial intelligence model specialized for extracting structured transaction records from diverse financial transaction messages (M-Pesa, banking, transfers, merchant payments, loans, and reversals) and answering capability-oriented queries. The extracted records are passed to deterministic Python analytics for cash-flow tracking, spending analysis, balance tracking, and financial insights."
     },
+    "provenance": {
+      "base_model_source": "huggingface:google/gemma-3-270m-it",
+      "base_model_commit_sha": "7cd8243b95650cc655b5c5af9fa74d4efbf5a9b1",
+      "fine_tuning_method": "lora",
+      "training_datasets": [
+        "SME-Ledger V2 Synthetic Financial Intelligence Dataset"
+      ]
+    },
     "test_prompts": [
       {
         "prompt_id": "tp_001",
