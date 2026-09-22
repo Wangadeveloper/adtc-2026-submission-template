@@ -19,7 +19,7 @@ MODEL_DIR="$HERE/model"
 # anything else in this file — see "download_model.sh" in README.md for what
 # the evaluator requires.
 MODEL_FILE="$MODEL_DIR/gemma3-financial-intelligence-Q4_K_M.gguf"
-MODEL_URL="https://huggingface.co/EngineerWanga0791709020/SME-Ledger/resolve/924cdceed7dda099b28943915232da9690f32747/sme-ledger-v2-Q4_K_M.gguf"
+MODEL_URL="https://huggingface.co/EngineerWanga0791709020/SME-Ledger/resolve/main/sme-ledger-v2-Q4_K_M.gguf"
 
 mkdir -p "$MODEL_DIR"
 
